@@ -1,0 +1,29 @@
+- name: Delete previous private key
+  file:
+    path: "{{ private_key_path }}"
+    state: absent
+
+- name: Create private & public keys
+  command : "ssh-keygen -t rsa -b 2048 -m PEM -q -N \"\" -f {{ private_key_path }}"
+
+- name: Set permissons to private key
+  file:
+    path: "{{ private_key_path }}"
+    mode: 0400
+
+- name: Remove previous private key from AWS
+  ec2_key:
+    name: "{{ project_name }}-key"
+    region: "{{ region }}"
+    state: absent
+
+- name: Create public key in AWS
+  ec2_key:
+    name: "{{ project_name }}-key"
+    region: "{{ region }}"
+    key_material: "{{ lookup('file', '{{ public_key_path }}') | replace('\n', '' )}}"
+
+- name: Delete previous public key
+  file:
+    path: "{{ public_key_path }}"
+    state: absent

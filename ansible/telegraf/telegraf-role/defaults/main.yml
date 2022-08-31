@@ -1,0 +1,14 @@
+---
+monitoring_host_ip: "{{ groups['monitoring'][0] }}"
+load_generator_host_ip: "{{ groups['load_generator'][0] }}"
+
+telegraf_version: "telegraf=1.22.0-1"
+
+telegraf_dependencies:
+  - apt-transport-https
+  - gnupg
+
+telegraf_signing_key: https://repos.influxdata.com/influxdb.key
+telegraf_repository: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+
+telegraf_config_path: /etc/telegraf

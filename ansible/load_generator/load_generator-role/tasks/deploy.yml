@@ -1,0 +1,37 @@
+---
+- name: Update APT package manager repositories cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Install Java
+  become: yes
+  apt:
+    name: openjdk-11-jdk
+    state: present
+
+- name: Copy load generator distibutive
+  copy:
+    src: "{{ load_generator_src_dir }}/dist"
+    dest: /data/load_generator
+    owner: ubuntu
+    group: ubuntu
+    mode: '0644'
+
+- name: Change permission for .jar
+  file:
+    path: "/data/load_generator/dist/load_generator-assembly-1.0.jar"
+    state: file
+    mode: "0775"
+
+- name: Find .sh files
+  find:
+    paths: "/data/load_generator/dist"
+    patterns: "*.sh"
+  register: files_to_change
+
+- name: Change permission for .sh files
+  file:
+    path: "{{ item.path }}"
+    mode: "0775"
+  with_items: "{{ files_to_change.files }}"

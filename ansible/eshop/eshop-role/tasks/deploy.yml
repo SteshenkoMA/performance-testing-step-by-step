@@ -1,0 +1,50 @@
+---
+- name: Update APT package manager repositories cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Install Java
+  become: yes
+  apt:
+    name: openjdk-11-jdk
+    state: present
+
+- name: Сreate Eshop directory
+  file:
+    path: /data/eshop
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+
+- name: Copy Eshop distibutive
+  copy:
+    src: "{{ eshop_src_dir }}/dist"
+    dest: /data/eshop
+    owner: ubuntu
+    group: ubuntu
+    mode: '0644'
+
+- name: Change permission for .jar
+  file:
+    path: "/data/eshop/dist/eshop-1.0.jar"
+    state: file
+    mode: "0775"
+
+- name: Change permission for .sh
+  file:
+    path: "/data/eshop/dist/start.sh"
+    state: file
+    mode: "0775"
+
+- name: Copy Eshop systemd service unit file
+  copy:
+    src: eshop.service
+    dest: /etc/systemd/system
+
+- name: Enable and start Eshop service
+  service:
+    name: eshop
+    enabled: yes
+    state: started
+    daemon_reload: yes

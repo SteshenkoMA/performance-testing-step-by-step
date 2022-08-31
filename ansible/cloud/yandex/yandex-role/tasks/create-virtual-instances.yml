@@ -1,0 +1,57 @@
+---
+- name: Load instances configurations
+  include_vars:
+    name: instances
+    file: instances.yml
+
+- set_fact: public_key="{{ lookup('file', '{{ public_key_path }}') | replace('\n', '' )}}"
+
+- name: Create virtual instances
+  uri:
+    url: https://compute.api.cloud.yandex.net/compute/v1/instances
+    method: POST
+    body: "{{ lookup('template','create_vm.json') }}"
+    status_code: 200
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ iam_token }}"
+  register: create_vm_result
+  with_dict: "{{ instances }}"
+
+- name: Initiate VM creation orders list
+  set_fact:
+    vm_creation_orders: []
+
+- name: Add VM creation orders to list
+  set_fact:
+    vm_creation_orders: "{{ vm_creation_orders +
+                  [{ 'instanceId': item.json.metadata.instanceId }] }}"
+  loop: "{{ create_vm_result.results }}"
+
+- name: Check until VM is running
+  uri:
+    url: https://compute.api.cloud.yandex.net/compute/v1/instances/{{ item.instanceId }}
+    method: GET
+    status_code: 200
+    headers:
+      Authorization: "Bearer {{ iam_token }}"
+  with_items: "{{ vm_creation_orders }}"
+  register: check_vm_result
+  until: check_vm_result.json.status == "RUNNING"
+  retries: 20
+  delay: 30
+
+- name: Initiate VMs running list
+  set_fact:
+    vms_running: []
+
+- name: Add new IPs to list
+  set_fact:
+    vms_running: "{{ vms_running +
+          [{ 'name': item.json.name,
+             'public_ip': item.json.networkInterfaces[0].primaryV4Address.oneToOneNat.address }] }}"
+  loop: "{{ check_vm_result.results }}"
+
+- name: Rename loadgenerator -> load_generator
+  set_fact:
+    vms_running: "{{ vms_running | regex_replace('loadgenerator','load_generator') }}"

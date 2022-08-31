@@ -1,0 +1,28 @@
+monitoring:
+  instance_type: "t2.micro"
+  spot_price: 0.004
+  group_id: "{{ monitoring_security_group.group_id }}"
+webserver:
+  instance_type: "t2.micro"
+  spot_price: 0.004
+  group_id: "{{ eshop_security_group.group_id }}"
+load_generator:
+  instance_type: "t2.micro"
+  spot_price: 0.004
+  group_id: "{{ load_generator_security_group.group_id }}"
+
+# Information is actual for 17.03.2022
+#
+# 12 month free tier:
+# https://aws.amazon.com/ec2/?nc1=h_ls
+#
+# USD Prices per hour: spot vs on-demand
+# https://aws.amazon.com/ec2/instance-types/t2/?nc1=h_ls
+# https://aws.amazon.com/ec2/spot/pricing/?nc1=h_ls
+#
+# Instance    vCPU   Memory  Spot    On-demand
+# type        cores  GB
+#
+# t2.micro    1      1       0.004   0.0116
+# t2.medium   2      4       0.0161  0.0464
+# t2.xlarge   4      16      0.0643  0.1856

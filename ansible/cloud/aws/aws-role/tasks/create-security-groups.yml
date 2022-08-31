@@ -1,0 +1,70 @@
+- name: Create monitoring security group
+  ec2_group:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    name: "monitoring_security_group"
+    description: "monitoring security group"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp # ssh
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp # influxdb
+        from_port: 8086
+        to_port: 8086
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp # grafana
+        from_port: 3000
+        to_port: 3000
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp # graphite
+        from_port: 2003
+        to_port: 2003
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: monitoring_security_group
+
+- name: Create eshop security group
+  ec2_group:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    name: "eshop_security_group"
+    description: "eshop security group"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp # ssh
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp # eshop
+        from_port: 4000
+        to_port: 4000
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp # jmx
+        from_port: 5000
+        to_port: 5000
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: eshop_security_group
+
+- name: Create load_generator security group
+  ec2_group:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    name: "load_generator_security_group"
+    description: "load generator security group"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp # ssh
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
+  register: load_generator_security_group

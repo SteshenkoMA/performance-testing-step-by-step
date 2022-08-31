@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="log-path">./logs</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="file-log" fileName="${log-path}/current.log" filePattern="${log-path}/logger-%d{dd-MM-yyyy_HH-mm-ss-SSS}.log.zip">
+            <PatternLayout>
+                <pattern>[%-5level] %d{dd-MM-yyyy_HH-mm-ss-SSS} [%t] %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${log-path}" maxDepth="1">
+                    <IfLastModified age="P4D"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{dd.MM.yyyy HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <appender-ref ref="console"/>
+            <appender-ref ref="file-log"/>
+        </Root>
+    </Loggers>
+</Configuration>
+

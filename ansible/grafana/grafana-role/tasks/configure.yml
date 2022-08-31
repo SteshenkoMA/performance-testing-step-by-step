@@ -1,0 +1,29 @@
+- name: Copy file with owner and permissions
+  copy:
+    src: datasource.yaml
+    dest: /etc/grafana/provisioning/datasources
+    owner: ubuntu
+    group: ubuntu
+    mode: '0644'
+
+- name: Copy dashboards
+  copy:
+    src: dashboards
+    dest: /etc/grafana
+    owner: ubuntu
+    group: ubuntu
+    mode: '0644'
+
+- name: Copy dashboard-provider file with owner and permissions
+  copy:
+    src: dashboard-provider.yaml
+    dest: /etc/grafana/provisioning/dashboards
+    owner: ubuntu
+    group: ubuntu
+    mode: '0644'
+
+- name: Enable and start grafana service
+  service:
+    name: grafana-server
+    enabled: yes
+    state: started

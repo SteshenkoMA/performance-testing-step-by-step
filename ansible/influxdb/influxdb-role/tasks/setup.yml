@@ -1,0 +1,27 @@
+---
+- name: Install dependencies
+  apt:
+    name: "{{ influxdb_dependencies }}"
+    state: present
+    update_cache: true
+
+- name: Add InfluxDB's signing key
+  apt_key:
+    state: present
+    url: "{{ influxdb_signing_key }}"
+
+- name: Manage InfluxDB APT repository
+  apt_repository:
+    repo: "{{ influxdb_repository }}"
+    state: present
+
+- name: Install InfluxDB
+  apt:
+    name: "{{ influxdb_version }}"
+    state: present
+
+- name: Ensure InfluxDB service is in the desired state
+  service:
+    enabled: true
+    name: influxdb
+    state: started

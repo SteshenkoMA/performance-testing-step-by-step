@@ -1,0 +1,21 @@
+---
+- name: Build Eshop application
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: eshop-role
+        tasks_from: build
+
+- name: Deploy Eshop application
+  hosts: webserver
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  tasks:
+    - include_role:
+        name: eshop-role
+        tasks_from: deploy
+
+ # Eshop will be available at http://websever_host_ip:4000/eshop

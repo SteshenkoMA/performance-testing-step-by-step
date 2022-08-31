@@ -1,0 +1,22 @@
+---
+
+- name: Delete old Eshop distributive
+  file:
+    path: "{{ eshop_src_dir }}/dist"
+    state: absent
+
+- name: Delete old Eshop application ./target
+  file:
+    path: "{{ eshop_src_dir }}/target"
+    state: absent
+
+- name: Override variable in start.sh
+  lineinfile:
+    dest: "{{ eshop_src_dir }}/src/main/resources/start.sh"
+    regexp: 'rmi.server.hostname='
+    line: '     -Djava.rmi.server.hostname={{ webserver_host_ip }} \'
+    state: present
+
+- name: Package Eshop application with Maven
+  shell: "mvn -f {{ eshop_src_dir }}/pom.xml package"
+

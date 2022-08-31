@@ -1,0 +1,15 @@
+---
+folder_id: b1gcmdvlb99o4c4j386h
+zone_id: ru-central1-b
+subnet_id: e2lc4njtevun0ot1r425
+platform_id: standard-v3 # Intel Ice Lake - Intel Xeon Gold 6338
+image_id: fd8mfc6omiki5govl68h # Ubuntu 20.04 LTS
+project_name: performance-testing
+remote_user: ubuntu
+hostpath: "../../hosts.ini"
+private_key_path: "~/.ssh/{{ project_name }}-key.pem"
+public_key_path: "~/.ssh/{{ project_name }}-key.pem.pub"
+project_dir: "{{ playbook_dir | replace('/ansible/cloud/yandex','') }}"
+putty_dir: "{{ project_dir }}/putty"
+hoststring: "ansible_ssh_user=ubuntu ansible_ssh_private_key_file={{ private_key_path }}"
+oauth_token: "{{ lookup('env', 'YANDEX_OAUTH_TOKEN') }}"

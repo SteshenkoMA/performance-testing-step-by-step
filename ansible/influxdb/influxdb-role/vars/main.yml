@@ -1,0 +1,14 @@
+---
+influxdb_orgs:
+  - name: main-org
+    description: Main organization
+
+influxdb_buckets:
+  - name: telegraf
+    description: Telegraf metrics
+    org: main-org
+    retention: 1d
+  - name: gatling
+    description: Gatling metrics
+    org: main-org
+    retention: 1d

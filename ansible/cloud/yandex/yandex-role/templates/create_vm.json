@@ -1,0 +1,33 @@
+{
+  "folderId": "{{ folder_id }}",
+  "name": "{{ item.key }}",
+  "zoneId": "{{ zone_id }}",
+  "platformId": "{{ platform_id }}",
+  "resourcesSpec": {
+    "cores": "{{ item.value.cpu_cores }}",
+    "memory": "{{ item.value.memory_bytes}}",
+    "coreFraction": "100"
+  },
+  "metadata": {
+    "user-data": "#cloud-config\nusers:\n  - name: {{ remote_user }}\n    groups: sudo\n    shell: /bin/bash\n    sudo: ['ALL=(ALL) NOPASSWD:ALL']\n    ssh-authorized-keys:\n      - {{ public_key }}"
+  },
+  "bootDiskSpec": {
+    "diskSpec": {
+      "size": "{{ item.value.disk_bytes}}",
+      "imageId": "{{ image_id }}"
+    }
+  },
+  "networkInterfaceSpecs": [
+    {
+      "subnetId": "{{ subnet_id }}",
+      "primaryV4AddressSpec": {
+        "oneToOneNatSpec": {
+          "ipVersion": "IPV4"
+        }
+      }
+    }
+  ],
+  "schedulingPolicy":{
+    "preemptible": true
+  }
+}

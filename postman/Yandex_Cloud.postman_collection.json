@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "19eab3ba-825b-4eb4-918a-9858be2c1ac6",
+		"name": "Yandex Cloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Get IAM token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"iam_token\", jsonData.iamToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"yandexPassportOauthToken\": \"AQAAAAANuBb5AATuwfVd4vNedU28hjWdJEbZrGs\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://iam.api.cloud.yandex.net/iam/v1/tokens",
+					"protocol": "https",
+					"host": [
+						"iam",
+						"api",
+						"cloud",
+						"yandex",
+						"net"
+					],
+					"path": [
+						"iam",
+						"v1",
+						"tokens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Get folder info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{iam_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://vpc.api.cloud.yandex.net/vpc/v1/subnets?folderId=b1gcmdvlb99o4c4j386h",
+					"protocol": "https",
+					"host": [
+						"vpc",
+						"api",
+						"cloud",
+						"yandex",
+						"net"
+					],
+					"path": [
+						"vpc",
+						"v1",
+						"subnets"
+					],
+					"query": [
+						{
+							"key": "folderId",
+							"value": "b1gcmdvlb99o4c4j386h"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Create monitoring vm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"vm_instance_id\", jsonData.metadata.instanceId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{iam_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"folderId\": \"b1gcmdvlb99o4c4j386h\",\r\n  \"name\": \"monitoring\",\r\n  \"zoneId\": \"ru-central1-b\",\r\n  \"platformId\": \"standard-v3\",\r\n  \"resourcesSpec\": {\r\n    \"memory\": \"4294967296\",\r\n    \"cores\": \"2\",\r\n    \"coreFraction\": \"100\"\r\n  },\r\n  \"metadata\": {\r\n    \"user-data\": \"#cloud-config\\nusers:\\n  - name: ubuntu\\n    groups: sudo\\n    shell: /bin/bash\\n    sudo: ['ALL=(ALL) NOPASSWD:ALL']\\n    ssh-authorized-keys:\\n      - {{public_key}}\"\r\n  },\r\n  \"bootDiskSpec\": {\r\n    \"diskSpec\": {\r\n      \"size\": \"10737418240\",\r\n      \"imageId\": \"fd8mfc6omiki5govl68h\"\r\n    }\r\n  },\r\n  \"networkInterfaceSpecs\": [\r\n    {\r\n      \"subnetId\": \"e2lc4njtevun0ot1r425\",\r\n      \"primaryV4AddressSpec\": {\r\n        \"oneToOneNatSpec\": {\r\n          \"ipVersion\": \"IPV4\"\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"schedulingPolicy\":{\r\n      \"preemptible\": true\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://compute.api.cloud.yandex.net/compute/v1/instances",
+					"protocol": "https",
+					"host": [
+						"compute",
+						"api",
+						"cloud",
+						"yandex",
+						"net"
+					],
+					"path": [
+						"compute",
+						"v1",
+						"instances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Get vm info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{iam_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://compute.api.cloud.yandex.net/compute/v1/instances/{{vm_instance_id}}",
+					"protocol": "https",
+					"host": [
+						"compute",
+						"api",
+						"cloud",
+						"yandex",
+						"net"
+					],
+					"path": [
+						"compute",
+						"v1",
+						"instances",
+						"{{vm_instance_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

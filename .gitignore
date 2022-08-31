@@ -1,0 +1,16 @@
+.idea\
+/performance-testing-step-by-step.iml
+/load_generator/.idea/
+/load_generator/.bsp/
+/load_generator/.idea/
+/load_generator/project/target/
+/load_generator/project/project/
+/load_generator/project/target/
+/load_generator/results/
+/load_generator/results/app.log
+/load_generator/results/dist/
+/eshop/dist/
+/eshop/.idea/
+/eshop/logs/
+/eshop/eshop.iml.idea\
+eshop.iml

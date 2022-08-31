@@ -1,0 +1,8 @@
+---
+- name: Install Telegraf
+  hosts: monitoring,webserver,load_generator
+  remote_user: ubuntu
+  become: yes 
+  become_method: sudo
+  roles:
+    - role: telegraf-role

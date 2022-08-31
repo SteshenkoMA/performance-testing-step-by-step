@@ -1,0 +1,21 @@
+---
+- name: Install dependencies
+  apt:
+    name: "{{ telegraf_dependencies }}"
+    state: present
+    update_cache: true
+
+- name: Add Telegraf's signing key
+  apt_key:
+    state: present
+    url: "{{ telegraf_signing_key }}"
+
+- name: Manage Telegraf APT repository
+  apt_repository:
+    repo: "{{ telegraf_repository }}"
+    state: present
+
+- name: Install Telegraf
+  apt:
+    name: "{{ telegraf_version }}"
+    state: "present"

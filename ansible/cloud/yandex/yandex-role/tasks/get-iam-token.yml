@@ -1,0 +1,10 @@
+- name: Get IAM token
+  uri:
+    url: https://iam.api.cloud.yandex.net/iam/v1/tokens
+    method: POST
+    body: {"yandexPassportOauthToken":"{{ oauth_token }}"}
+    status_code: 200
+    body_format: json
+  register: get_iam_token_result
+
+- set_fact: iam_token={{ get_iam_token_result.json.iamToken }}

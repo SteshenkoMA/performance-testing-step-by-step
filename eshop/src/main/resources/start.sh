@@ -1,0 +1,11 @@
+java -Dfile.encoding=UTF8 \
+     -Dlog4j.configurationFile=./log4j2.xml \
+     -Dcom.sun.management.jmxremote=true \
+     -Dcom.sun.management.jmxremote.port=5000 \
+     -Dcom.sun.management.jmxremote.rmi.port=5000 \
+     -Dcom.sun.management.jmxremote.local.only=false \
+     -Dcom.sun.management.jmxremote.authenticate=false \
+     -Dcom.sun.management.jmxremote.ssl=false \
+     -Djava.rmi.server.hostname=51.250.99.96 \
+     -jar ./eshop-1.0.jar \
+     -config=./config.properties

@@ -1,0 +1,5 @@
+---
+load_generator_host_ip: "{{ groups['load_generator'][0] }}"
+webserver_host_ip: "{{ groups['webserver'][0] }}"
+project_dir: "{{ playbook_dir | replace('/ansible/load_generator','') }}"
+load_generator_src_dir: "{{ project_dir }}/load_generator"

@@ -1,0 +1,25 @@
+- name: Delete previous private key
+  file:
+    path: "{{ private_key_path }}"
+    state: absent
+
+- name: Delete previous public key
+  file:
+    path: "{{ public_key_path }}"
+    state: absent
+
+- name: Delete previous private key from putty folder
+  file:
+    path: "{{ putty_dir }}/{{ project_name }}-key.pem"
+    state: absent
+
+- name: Delete previous private ppk key from putty folder
+  file:
+    path: "{{ putty_dir }}/{{ project_name }}-key.ppk"
+    state: absent
+
+- name: Create private & public keys
+  command : "ssh-keygen -t rsa -b 2048 -m PEM -q -N \"\" -f {{ private_key_path }}"
+
+- name: Copy private key to putty folder
+  command : "cp ~/.ssh/{{ project_name }}-key.pem {{ putty_dir }}"

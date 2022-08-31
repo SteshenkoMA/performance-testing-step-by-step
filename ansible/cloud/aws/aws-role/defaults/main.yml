@@ -1,0 +1,12 @@
+---
+region: eu-central-1
+image: ami-05f7491af5eef733a # Ubuntu 20.04 LTS
+vpc_subnet_id: subnet-3caae156 # https://eu-central-1.console.aws.amazon.com/vpc/home?region=eu-central-1#subnets:
+project_name: performance-testing
+app_code_user: "ubuntu" # remote user
+hoststring: "ansible_ssh_user=ubuntu ansible_ssh_private_key_file=../{{ project_name }}-key.pem"
+hostpath: "../../hosts.ini"
+private_key_path: "../../{{ project_name }}-key.pem"
+public_key_path: "../../{{ project_name }}-key.pem.pub"
+aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"

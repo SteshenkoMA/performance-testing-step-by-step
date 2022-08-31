@@ -1,0 +1,241 @@
+#confirmation{
+    border: 1px solid black;
+    height: 80%;
+    width: 70%;
+    flex-direction: column;  
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+}
+
+#message{
+    height: 30%;
+    background-color: #f4fdf4;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    font-size:1.5vw;
+}
+
+#customer-order-info{
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  
+}
+
+#order-info{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+#customer-info{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+#order-info-header{
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;  
+    align-content: center;
+    font-weight: 600;
+    font-size:2vw;
+}
+
+#order-info-data{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#customer-info-header{
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;  
+    align-content: center;
+    font-weight: 600;
+}
+
+#customer-info-data{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#customer-info-data > div {
+    font-size:1.5vw;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 5px;
+}
+
+th, td {
+    font-size:1.5vw;
+    border: 1px solid lightgray;
+    line-height: 1;
+    border-collapse: collapse;
+    padding: 3px;
+}
+
+tr{
+    height: 20px;
+}
+
+table.messageTable tr, table.messageTable td {
+    border: 1px solid transparent;
+    border-collapse: collapse;
+    padding: 0px;
+}
+
+table.messageTable {
+    margin-top: 5px;
+    padding: 0px;
+}
+
+.flex-item-order-header {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+}
+
+.product-name-header{
+    border-top: 1px solid lightgray;      
+    border-left: 1px solid lightgray;
+    border-bottom: 1px solid lightgray; 
+    width: 50%;
+    display: flex;
+    align-items: center;
+    background-color: rgba(236,236,236,0.10);     
+}
+
+.product-price-header {
+    border-top: 1px solid lightgray;      
+    border-left: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;     
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(236,236,236,0.10);     
+}
+
+.product-quantity-header {
+    border-top: 1px solid lightgray;    
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;    
+    border-bottom: 1px solid lightgray;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(236,236,236,0.10);     
+}
+
+.product-name-header, 
+.product-price-header, 
+.product-quantity-header,
+.product-name, 
+.product-price, 
+.product-quantity,
+.product-name-footer, 
+.product-price-footer, 
+.product-quantity-footer > span {
+    font-size:1vw;
+}
+
+.product-name-header,
+.product-price-header, 
+.product-quantity-header > span {
+    font-weight: 600;
+}
+
+.product-name-footer,
+.product-price-footer, 
+.product-quantity-footer > span {
+    font-weight: 600;
+}
+
+.flex-item-order-product {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+}
+
+.product-name {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid lightgray;     
+    border-bottom: 1px solid lightgray;    
+}
+
+.product-price {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    border-left: 1px solid lightgray;    
+    border-bottom: 1px solid lightgray;   
+}
+
+.product-quantity {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid lightgray;       
+    border-right: 1px solid lightgray;    
+    border-bottom: 1px solid lightgray;   
+}
+
+.flex-item-order-footer {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+}
+
+.product-name-footer {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid lightgray;
+    border-bottom: 1px solid lightgray; 
+    background-color: rgba(236,236,236,0.10);    
+}
+
+.product-price-footer {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid lightgray;       
+    border-bottom: 1px solid lightgray; 
+    background-color: rgba(236,236,236,0.10);     
+}
+
+.product-quantity-footer {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;    
+    border-bottom: 1px solid lightgray; 
+    background-color: rgba(236,236,236,0.10);    
+}

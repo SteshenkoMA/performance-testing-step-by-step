@@ -1,0 +1,7 @@
+- name: Add the newly created Yandex.Cloud instances to host group
+  lineinfile:
+    dest: "{{ hostpath }}"
+    insertafter: "{{ item.name }}"
+    line: "{{ item.public_ip }} {{ hoststring }}"
+    state: present
+  with_items: "{{ vms_running }}"

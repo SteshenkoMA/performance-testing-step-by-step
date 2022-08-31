@@ -1,0 +1,8 @@
+---
+- name: Install InfluxDB
+  hosts: monitoring
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  roles:
+    - influxdb-role

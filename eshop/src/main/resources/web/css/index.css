@@ -1,0 +1,76 @@
+#greeting{
+    height: 80%;
+    width: 80%;
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column; 
+    align-self: center;
+    background-color:rgba(236,236,236,0.10);
+}
+
+.welcome-header {
+    font-weight:600;
+    font-size:2vw;
+}
+
+#categories{
+    height: 90%;
+    width: 90%;
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: center;
+    padding: 5px;
+    align-content: center;
+}
+
+#categories > div {
+    margin:5px;
+}
+
+.category-block {
+    flex: 1 0 30%;
+    border: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    text-align: center; 
+    align-content: center;
+    align-items: center;
+    width: 30%;
+}
+
+.category-block:hover {
+    background-size: cover;
+}
+
+.category-name{
+    display: flex;
+    border: 1px solid darkgray;
+    height: 15%;
+    width: 60%;
+    justify-content: center;
+    text-align: center; 
+    color: black;
+    font-weight: 600;
+    align-content: center;
+    align-items: center;
+    background-color:rgba(236,236,236,0.80);
+}
+
+.category-block:hover .category-name{ 
+    border: 2px solid grey;
+    font-weight: 900;
+    font-size: 1.1em;
+}
+
+.category-block:hover {
+    background-size: cover;
+}

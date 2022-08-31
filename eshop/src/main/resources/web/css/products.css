@@ -1,0 +1,175 @@
+.product-description {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-price {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-img {
+    width: 20%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+}
+
+.product-name-header{
+    width: 40%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-img-name {
+    width: 40%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+}
+
+.product-price-header {
+    width: 15%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-quantity-header {
+    width: 15%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-name,
+.product-quantity-header, 
+.product-price-header,
+.product-total-price-header,
+.product-price,
+.product-quantity,
+.product-total-price,
+.products-sub-total-price,
+.product-items-in-cart > span{
+    font-size:1.5vw;
+}
+
+.product-update > button {
+    font-size:1.5vw;
+}
+
+.product-quantity > input {
+    font-size:1.5vw;    
+}
+
+.product-total-price-header {
+    width: 15%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-update-header {
+    width: 15%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}
+
+#cart .product-name {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#products .product-name {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-price {
+    width: 15%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-quantity {
+    width: 15%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-total-price {
+    width: 15%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-update {
+    width: 15%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-origin: content-box;
+    background-clip: content-box;
+    justify-content: center;
+    align-items: center;
+}

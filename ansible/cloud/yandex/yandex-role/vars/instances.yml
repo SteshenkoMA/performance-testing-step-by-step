@@ -1,0 +1,26 @@
+monitoring:
+  cpu_cores: "2"
+  memory_bytes: "4294967296"
+  disk_bytes: "10737418240"
+webserver:
+  cpu_cores: "2"
+  memory_bytes: "4294967296"
+  disk_bytes: "10737418240"
+loadgenerator:
+  cpu_cores: "2"
+  memory_bytes: "4294967296"
+  disk_bytes: "10737418240"
+
+# Information is actual for 17.03.2022
+#
+# Free trial:
+# https://cloud.yandex.com/en-ru/docs/free-trial
+#
+# RUB Prices per hour:
+# https://cloud.yandex.com/en-ru/prices
+#
+# Instance      CPU        vCPU    Memory   HDD   IP        Scheduling    Price
+# type          baseline   cores   GB       GB    address   policy
+#
+# standard-v3   100%       2       4        10    public    preemptible   0.725
+# standard-v3   100%       4       8        20    public    preemptible   1.298

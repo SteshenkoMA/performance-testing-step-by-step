@@ -1,0 +1,45 @@
+---
+- name: Override variable in gatling.conf
+  lineinfile:
+    dest: "{{ load_generator_src_dir }}/src/it/resources/gatling.conf"
+    regexp: '[^#\n]host'
+    line: '            host = "{{ load_generator_host_ip }}"'
+    state: present
+
+- name: Override variable in application.conf
+  lineinfile:
+    dest: "{{ load_generator_src_dir }}/src/it/resources/application.conf"
+    regexp: '^url'
+    line: 'url = "http://{{ webserver_host_ip }}:4000"'
+    state: present
+
+- name: Delete old load generator distributive
+  when: inventory_hostname in groups['local']
+  file:
+    path: "{{ load_generator_src_dir }}/dist"
+    state: absent
+
+- name: Delete old load generator ./project/project/target
+  when: inventory_hostname in groups['local']
+  file:
+    path: "{{ load_generator_src_dir }}/project/project/target"
+    state: absent
+
+- name: Delete old load generator ./project/target
+  when: inventory_hostname in groups['local']
+  file:
+    path: "{{ load_generator_src_dir }}/project/target"
+    state: absent
+
+- name: Delete old load generator ./target
+  when: inventory_hostname in groups['local']
+  file:
+    path: "{{ load_generator_src_dir }}/target"
+    state: absent
+
+- name: Assembly load generator with sbt
+  when: inventory_hostname in groups['local']
+  shell: "sbt --batch -Dsbt.server.forcestart=true assembly"
+  args:
+    chdir: "{{ load_generator_src_dir }}"
+

@@ -1,0 +1,46 @@
+---
+- name: Setup main configuration file
+  template:
+    dest: "{{ telegraf_config_path }}/telegraf.conf"
+    group: telegraf
+    mode: 0644
+    owner: telegraf
+    src: etc/telegraf/telegraf.conf
+
+- name: Setup additional configuration file (graphite listener)
+  when: inventory_hostname in groups['load_generator']
+  template:
+    dest: "{{ telegraf_config_path }}/telegraf.d/gatling.conf"
+    group: telegraf
+    mode: 0644
+    owner: telegraf
+    src: etc/telegraf/telegraf.d/gatling.conf
+
+- name: Setup additional configuration file (Eshop db size checker)
+  when: inventory_hostname in groups['webserver']
+  template:
+    dest: "{{ telegraf_config_path }}/telegraf.d/ls_eshop_db_size.conf"
+    group: telegraf
+    mode: 0644
+    owner: telegraf
+    src: etc/telegraf/telegraf.d/ls_eshop_db_size.conf
+
+- name: Add Eshop db size checker
+  when: inventory_hostname in groups['webserver']
+  template:
+    dest: "{{ telegraf_config_path }}/ls_eshop_db_size.sh"
+    group: telegraf
+    mode: "0775"
+    owner: telegraf
+    src: etc/telegraf/ls_eshop_db_size.sh
+
+- name: Restart Telegraf
+  service:
+    name: telegraf
+    state: restarted
+
+- name: Ensure Telegraf service is in the desired state
+  service:
+    enabled: true
+    name: telegraf
+    state: started

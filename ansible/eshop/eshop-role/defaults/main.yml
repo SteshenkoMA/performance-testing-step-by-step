@@ -1,0 +1,4 @@
+---
+webserver_host_ip: "{{ groups['webserver'][0] }}"
+project_dir: "{{ playbook_dir | replace('/ansible/eshop','') }}"
+eshop_src_dir: "{{ project_dir }}/eshop"

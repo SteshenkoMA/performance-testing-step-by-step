@@ -1,0 +1,5 @@
+---
+- include_tasks: create-private-key.yml
+- include_tasks: create-security-groups.yml
+- include_tasks: create-virtual-instances.yml
+- include_tasks: update-hosts-ini.yml

@@ -1,0 +1,21 @@
+---
+- name: Install dependencies
+  apt:
+    name: "{{ grafana_dependencies }}"
+    state: present
+    update_cache: true
+
+- name: Add Grafana's signing key
+  apt_key:
+    state: present
+    url: "{{ grafana_signing_key }}"
+
+- name: Manage Grafana APT repository
+  apt_repository:
+    repo: "{{ grafana_repository }}"
+    state: present
+
+- name: Install Grafana
+  apt:
+    name: "{{ grafana_version }}"
+    state: present

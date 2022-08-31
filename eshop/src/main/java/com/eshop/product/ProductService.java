@@ -1,0 +1,101 @@
+package com.eshop.product;
+
+import com.eshop.database.DatabaseConnector;
+import com.eshop.category.Category;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.sql.*;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * 
+ * @author https://github.com/steshenkoma
+ */
+public class ProductService {
+
+    private static String SELECT_QUERY = "SELECT * FROM category";
+    private static String SELECT_CATEGORY_PRODUCTS = "SELECT * FROM product WHERE category_id=?";
+    private Map<Integer, Product> products;
+    private static final Logger logger = LogManager.getLogger(ProductService.class);
+
+    public ProductService() throws SQLException {
+        try {
+            products = readFromDB();
+        } catch (SQLException ex) {
+            products = new ConcurrentHashMap<>();
+            logger.error("Could not read products from DB {}", ex);
+            throw ex;
+        }
+    }
+
+    private Map<Integer, Product> readFromDB() throws SQLException {
+        Map<Integer, Category> categoryMap = new ConcurrentHashMap<>();
+        Map<Integer, Product> productMap = new ConcurrentHashMap<>();
+
+        try (Connection c = DatabaseConnector.getInstance().getConnection();
+                Statement stmt = c.createStatement();
+                ResultSet rs = stmt.executeQuery(SELECT_QUERY)) {
+            while (rs.next()) {
+                int categoryId = rs.getInt("id");
+                String categoryName = rs.getString("name");
+                Category category = new Category(categoryId, categoryName);
+                categoryMap.put(categoryId, category);
+            }
+        }
+
+        for (Map.Entry<Integer, Category> entry : categoryMap.entrySet()) {
+            Category category = entry.getValue();
+            Map<Integer, Product> categoryProducts = readCategoryProductsFromDB(category);
+
+            for (Map.Entry<Integer, Product> e : categoryProducts.entrySet()) {
+                Integer key = e.getKey();
+                Product product = e.getValue();
+                productMap.put(key, product);
+            }
+
+        }
+
+        return productMap;
+    }
+
+    private Map<Integer, Product> readCategoryProductsFromDB(Category category) throws SQLException {
+
+        Map<Integer, Product> categoryProducts = new ConcurrentHashMap<>();
+
+        try (Connection c = DatabaseConnector.getInstance().getConnection();
+                PreparedStatement prs = c.prepareStatement(SELECT_CATEGORY_PRODUCTS)) {
+            prs.setInt(1, category.getId());
+
+            ResultSet rs = prs.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                String description = rs.getString("description");
+
+                Product product;
+                if (category.getId() == rs.getInt("category_id")) {
+                    product = new Product(id,
+                            name,
+                            price,
+                            description,
+                            category);
+                } else {
+                    product = null;
+                }
+
+                categoryProducts.put(id, product);
+            }
+        }
+
+        return categoryProducts;
+    }
+
+    public Map<Integer, Product> getProducts() {
+        return products;
+    }
+
+}

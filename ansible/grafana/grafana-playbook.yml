@@ -1,0 +1,10 @@
+---
+- name: Install Grafana
+  hosts: monitoring
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  roles:
+    - grafana-role
+
+ # Use admin/admin to log in http://monitoring_host_ip:3000

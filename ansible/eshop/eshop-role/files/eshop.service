@@ -1,0 +1,10 @@
+[Unit]
+Description=eshop systemd service unit file.
+
+[Service]
+WorkingDirectory=/data/eshop/dist/
+ExecStart=/bin/bash /data/eshop/dist/start.sh
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target

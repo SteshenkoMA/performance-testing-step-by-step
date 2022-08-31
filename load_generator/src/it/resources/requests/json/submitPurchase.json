@@ -1,0 +1,7 @@
+{
+  "name": "${name}",
+  "email": "${email}",
+  "phone": "${phone}",
+  "address": "${address}",
+  "ccNumber": "{$ccNumber}"
+}

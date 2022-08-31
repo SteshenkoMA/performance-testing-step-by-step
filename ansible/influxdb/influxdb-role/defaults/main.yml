@@ -1,0 +1,15 @@
+---
+influxdb_version: "influxdb2=2.1.1"
+
+influxdb_dependencies:
+  - apt-transport-https
+  - gnupg
+
+influxdb_signing_key: https://repos.influxdata.com/influxdb.key
+influxdb_repository: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+
+influxdb_primary_org: example-org
+influxdb_primary_bucket: example-bucket
+influxdb_primary_username: example-user
+influxdb_primary_password: ExamplePassword12345
+influxdb_admin_token: Example-Token
